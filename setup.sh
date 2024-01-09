@@ -8,7 +8,7 @@ else
   echo "ffmpeg is alread installed"
 fi
 
-actionsLocation="/Users/$(whoami)/Library/Services"
+actionsLocation="~/Library/Services"
 
 # Clear up the workspace
 rm -fr workspace ||  true
