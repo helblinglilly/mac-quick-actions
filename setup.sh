@@ -11,7 +11,7 @@ fi
 actionsLocation="/Users/$(whoami)/Library/Services"
 
 # Clear up the workspace
-rm -fr workspace
+rm -fr workspace ||  true
 mkdir workspace
 for action in quick-actions/* ; do
   cp -R "$action" workspace
@@ -37,6 +37,6 @@ for action in workspace/* ; do
 done
 
 # Clear up the workspace
-rm -fr workspace
+rm -fr workspace || true
 
 echo "All done! If the actions don't appear in the Quick Actions menu, please follow the instructions in the Readme."
