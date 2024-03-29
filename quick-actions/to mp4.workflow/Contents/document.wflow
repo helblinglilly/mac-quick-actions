@@ -62,7 +62,6 @@
 					<string>for f in "$@"
 do
 	@@FFMPEGLOCATION@@ -i "$f" -c:v libx264 -c:a aac -strict -2 -y "$f.mp4"
-	rm "$f"
 done</string>
 					<key>CheckedForUserDefaultShell</key>
 					<true/>
