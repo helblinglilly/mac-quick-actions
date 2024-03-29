@@ -8,9 +8,9 @@ else
   echo "ffmpeg is alread installed"
 fi
 
-actionsLocation="~/Library/Services"
+targetLocation="/Users/$(whoami)/Library/Services"
 
-# Clear up the workspace
+# Clear up the workspace in case it already exists
 rm -fr workspace ||  true
 mkdir workspace
 for action in quick-actions/* ; do
@@ -19,21 +19,21 @@ done
 
 # Replace all placeholders with their proper values
 for action in workspace/* ; do
-  workflowFile="$action/Contents/document.wflow"
+  fileWithPlaceholders="$action/Contents/document.wflow"
   actionName=$(basename "$action")
 
   # Pipe the parsed output into a temp location - document.wflow would otherwise 
   # just be an empty file - not sure why
-  sed "s|@@FFMPEGLOCATION@@|$(which 'ffmpeg')|g" "$workflowFile" > parsed.txt
-  sed "s|@@VSCODELOCATION@@|$(which 'code')|g" "$workflowFile" > parsed.txt
-  rm "$workflowFile"
-  mv parsed.txt "$workflowFile"
+  sed "s|@@FFMPEGLOCATION@@|$(which 'ffmpeg')|g" "$fileWithPlaceholders" > parsed.txt
+  sed "s|@@VSCODELOCATION@@|$(which 'code')|g" "$fileWithPlaceholders" > parsed.txt
+  rm "$fileWithPlaceholders"
+  mv parsed.txt "$fileWithPlaceholders"
 
-  echo "Removed previous versions of actions"
-  rm -fr "$actionsLocation/$action" || true
+  # echo "Removed previous versions of actions"
+  rm -fr "$targetLocation/$actionName" || true
 
   echo "Placing new actions in their locations"
-  cp -r "$action" "$actionsLocation/$actionName"
+  cp -R "$action" "$targetLocation/$actionName"
 done
 
 # Clear up the workspace
